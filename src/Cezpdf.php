@@ -1024,8 +1024,15 @@ define('EZ_GRIDLINE_COLUMNS', 1);
         }
 		
         $options['gap']=2*$options['colGap'];
-        // Use Y Position of Current Page position in Table
-        if ($options['nextPageY']) $nextPageY = $this->y;
+        // If nextPageY == 1, use Y Position of Current Page position in Table
+        if ($options['nextPageY'] == 1) {
+		$nextPageY = $this->y;
+	}
+        // If nextPageY as a value other than 1, use the value directly as position of Table
+        else if ($options['nextPageY']) {
+		$nextPageY = $this->ez['pageHeight']-$this->ez['topMargin'] - $options['nextPageY'];
+	}
+
 
         $middle = ($this->ez['pageWidth']-$this->ez['rightMargin'])/2+($this->ez['leftMargin'])/2;
         // figure out the maximum widths of the text within each column
